@@ -17,11 +17,13 @@ http.createServer(function (req, res) {
 
   // check for only API call
   if (filename == "./site/getImages") {
-    imageList = fs.readdirSync("site/images")
+    imageList = fs.readdirSync("site/images/my-images")
+    imageList = imageList.filter(el => el.match(/.*\.png$/))
+
     // sort by date modified
     imageList.sort(function(a, b) {
-        return fs.statSync("site/images/" + b).mtime.getTime() -
-               fs.statSync("site/images/" + a).mtime.getTime();
+        return fs.statSync("site/images/my-images/" + b).mtime.getTime() -
+               fs.statSync("site/images/my-images/" + a).mtime.getTime();
     });
 
     files = {"images" : imageList}
